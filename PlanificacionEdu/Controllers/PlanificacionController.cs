@@ -30,6 +30,7 @@ namespace PlanificacionEdu.Controllers
             ViewBag.SistematizacionId = new SelectList(await sistematizacionObjBs.Todos(), "Id", "Descripcion");
             ViewBag.TrabajoId = new SelectList(await trabajoObjBs.Todos(), "Id", "Descripcion");
 
+
             return View();
         }
 
