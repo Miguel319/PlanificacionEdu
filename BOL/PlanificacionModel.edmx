@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PlanificacionDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Indicador">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlanificacionId" Type="int" />
+          <Property Name="Accion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Conocimiento" Type="varchar(max)" Nullable="false" />
+          <Property Name="Condiciones" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Metodo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nivel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Planificacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Asignatura" Type="varchar(max)" Nullable="false" />
+          <Property Name="Curso" Type="varchar(max)" Nullable="false" />
+          <Property Name="AnioEscolar" Type="int" Nullable="false" />
+          <Property Name="Tema" Type="varchar(max)" Nullable="false" />
+          <Property Name="CompetenciasFundamentales" Type="varchar(max)" Nullable="false" />
+          <Property Name="CompetenciasEspecificas" Type="varchar(max)" Nullable="false" />
+          <Property Name="Escenario" Type="varchar(max)" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="MetodoId" Type="int" />
+          <Property Name="SistematizacionId" Type="int" />
+          <Property Name="TrabajoId" Type="int" />
+        </EntityType>
+        <EntityType Name="Sistematizacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Trabajo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Apellido" Type="varchar" MaxLength="50" />
+          <Property Name="Cedula" Type="varchar" MaxLength="20" />
+          <Property Name="NivelId" Type="int" />
+          <Property Name="Centro" Type="varchar(max)" />
+          <Property Name="Email" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Contra" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Metodo_Planificacion">
+          <End Role="Metodo" Type="Self.Metodo" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metodo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="MetodoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nivel_Usuario">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="NivelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Planificacion_Indicador">
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="0..1" />
+          <End Role="Indicador" Type="Self.Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planificacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Indicador">
+              <PropertyRef Name="PlanificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sistematizacion_Planificacion">
+          <End Role="Sistematizacion" Type="Self.Sistematizacion" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sistematizacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="SistematizacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trabajo_Planificacion">
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trabajo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="TrabajoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PlanificacionDbModelStoreContainer">
+          <EntitySet Name="Indicador" EntityType="Self.Indicador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Metodo" EntityType="Self.Metodo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nivel" EntityType="Self.Nivel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Planificacion" EntityType="Self.Planificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sistematizacion" EntityType="Self.Sistematizacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trabajo" EntityType="Self.Trabajo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Metodo_Planificacion" Association="Self.FK_Metodo_Planificacion">
+            <End Role="Metodo" EntitySet="Metodo" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nivel_Usuario" Association="Self.FK_Nivel_Usuario">
+            <End Role="Nivel" EntitySet="Nivel" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Planificacion_Indicador" Association="Self.FK_Planificacion_Indicador">
+            <End Role="Planificacion" EntitySet="Planificacion" />
+            <End Role="Indicador" EntitySet="Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sistematizacion_Planificacion" Association="Self.FK_Sistematizacion_Planificacion">
+            <End Role="Sistematizacion" EntitySet="Sistematizacion" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trabajo_Planificacion" Association="Self.FK_Trabajo_Planificacion">
+            <End Role="Trabajo" EntitySet="Trabajo" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PlanificacionDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Indicador">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlanificacionId" Type="Int32" />
+          <Property Name="Accion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Conocimiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Condiciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Planificacion" Relationship="Self.FK_Planificacion_Indicador" FromRole="Indicador" ToRole="Planificacion" />
+        </EntityType>
+        <EntityType Name="Metodo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Planificacion" Relationship="Self.FK_Metodo_Planificacion" FromRole="Metodo" ToRole="Planificacion" />
+        </EntityType>
+        <EntityType Name="Nivel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Nivel_Usuario" FromRole="Nivel" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Planificacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Asignatura" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Curso" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AnioEscolar" Type="Int32" Nullable="false" />
+          <Property Name="Tema" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompetenciasFundamentales" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompetenciasEspecificas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Escenario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MetodoId" Type="Int32" />
+          <Property Name="SistematizacionId" Type="Int32" />
+          <Property Name="TrabajoId" Type="Int32" />
+          <NavigationProperty Name="Indicador" Relationship="Self.FK_Planificacion_Indicador" FromRole="Planificacion" ToRole="Indicador" />
+          <NavigationProperty Name="Metodo" Relationship="Self.FK_Metodo_Planificacion" FromRole="Planificacion" ToRole="Metodo" />
+          <NavigationProperty Name="Sistematizacion" Relationship="Self.FK_Sistematizacion_Planificacion" FromRole="Planificacion" ToRole="Sistematizacion" />
+          <NavigationProperty Name="Trabajo" Relationship="Self.FK_Trabajo_Planificacion" FromRole="Planificacion" ToRole="Trabajo" />
+        </EntityType>
+        <EntityType Name="Sistematizacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Planificacion" Relationship="Self.FK_Sistematizacion_Planificacion" FromRole="Sistematizacion" ToRole="Planificacion" />
+        </EntityType>
+        <EntityType Name="Trabajo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Planificacion" Relationship="Self.FK_Trabajo_Planificacion" FromRole="Trabajo" ToRole="Planificacion" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NivelId" Type="Int32" />
+          <Property Name="Centro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contra" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Nivel" Relationship="Self.FK_Nivel_Usuario" FromRole="Usuario" ToRole="Nivel" />
+        </EntityType>
+        <Association Name="FK_Planificacion_Indicador">
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="0..1" />
+          <End Role="Indicador" Type="Self.Indicador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planificacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Indicador">
+              <PropertyRef Name="PlanificacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Metodo_Planificacion">
+          <End Role="Metodo" Type="Self.Metodo" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Metodo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="MetodoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nivel_Usuario">
+          <End Role="Nivel" Type="Self.Nivel" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nivel">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="NivelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sistematizacion_Planificacion">
+          <End Role="Sistematizacion" Type="Self.Sistematizacion" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sistematizacion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="SistematizacionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trabajo_Planificacion">
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trabajo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="TrabajoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PlanificacionDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Indicador" EntityType="Self.Indicador" />
+          <EntitySet Name="Metodo" EntityType="Self.Metodo" />
+          <EntitySet Name="Nivel" EntityType="Self.Nivel" />
+          <EntitySet Name="Planificacion" EntityType="Self.Planificacion" />
+          <EntitySet Name="Sistematizacion" EntityType="Self.Sistematizacion" />
+          <EntitySet Name="Trabajo" EntityType="Self.Trabajo" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Planificacion_Indicador" Association="Self.FK_Planificacion_Indicador">
+            <End Role="Planificacion" EntitySet="Planificacion" />
+            <End Role="Indicador" EntitySet="Indicador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Metodo_Planificacion" Association="Self.FK_Metodo_Planificacion">
+            <End Role="Metodo" EntitySet="Metodo" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nivel_Usuario" Association="Self.FK_Nivel_Usuario">
+            <End Role="Nivel" EntitySet="Nivel" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sistematizacion_Planificacion" Association="Self.FK_Sistematizacion_Planificacion">
+            <End Role="Sistematizacion" EntitySet="Sistematizacion" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trabajo_Planificacion" Association="Self.FK_Trabajo_Planificacion">
+            <End Role="Trabajo" EntitySet="Trabajo" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PlanificacionDbModelStoreContainer" CdmEntityContainer="PlanificacionDbEntities">
+          <EntitySetMapping Name="Indicador">
+            <EntityTypeMapping TypeName="PlanificacionDbModel.Indicador">
+              <MappingFragment StoreEntitySet="Indicador">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PlanificacionId" ColumnName="PlanificacionId" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Conocimiento" ColumnName="Conocimiento" />
+                <ScalarProperty Name="Condiciones" ColumnName="Condiciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Metodo">
+            <EntityTypeMapping TypeName="PlanificacionDbModel.Metodo">
+              <MappingFragment StoreEntitySet="Metodo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nivel">
+            <EntityTypeMapping TypeName="PlanificacionDbModel.Nivel">
+              <MappingFragment StoreEntitySet="Nivel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Planificacion">
+            <EntityTypeMapping TypeName="PlanificacionDbModel.Planificacion">
+              <MappingFragment StoreEntitySet="Planificacion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Asignatura" ColumnName="Asignatura" />
+                <ScalarProperty Name="Curso" ColumnName="Curso" />
+                <ScalarProperty Name="AnioEscolar" ColumnName="AnioEscolar" />
+                <ScalarProperty Name="Tema" ColumnName="Tema" />
+                <ScalarProperty Name="CompetenciasFundamentales" ColumnName="CompetenciasFundamentales" />
+                <ScalarProperty Name="CompetenciasEspecificas" ColumnName="CompetenciasEspecificas" />
+                <ScalarProperty Name="Escenario" ColumnName="Escenario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="MetodoId" ColumnName="MetodoId" />
+                <ScalarProperty Name="SistematizacionId" ColumnName="SistematizacionId" />
+                <ScalarProperty Name="TrabajoId" ColumnName="TrabajoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sistematizacion">
+            <EntityTypeMapping TypeName="PlanificacionDbModel.Sistematizacion">
+              <MappingFragment StoreEntitySet="Sistematizacion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trabajo">
+            <EntityTypeMapping TypeName="PlanificacionDbModel.Trabajo">
+              <MappingFragment StoreEntitySet="Trabajo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="PlanificacionDbModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="NivelId" ColumnName="NivelId" />
+                <ScalarProperty Name="Centro" ColumnName="Centro" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contra" ColumnName="Contra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

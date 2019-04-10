@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9c87949ba1bb4d5ca49e61a4b65a7c69" Name="Diagram1">
+        <EntityTypeShape EntityType="PlanificacionDbModel.Indicador" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanificacionDbModel.Metodo" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanificacionDbModel.Nivel" Width="1.5" PointX="5.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanificacionDbModel.Planificacion" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanificacionDbModel.Sistematizacion" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanificacionDbModel.Trabajo" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PlanificacionDbModel.Usuario" Width="1.5" PointX="8" PointY="7.5" IsExpanded="true" />
+        <AssociationConnector Association="PlanificacionDbModel.FK_Planificacion_Indicador" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanificacionDbModel.FK_Metodo_Planificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanificacionDbModel.FK_Nivel_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanificacionDbModel.FK_Sistematizacion_Planificacion" ManuallyRouted="false" />
+        <AssociationConnector Association="PlanificacionDbModel.FK_Trabajo_Planificacion" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
