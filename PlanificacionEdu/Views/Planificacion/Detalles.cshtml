@@ -1,0 +1,113 @@
+﻿@model BOL.Planificacion
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h3 class="text-center">Detalles @Model.Descripcion</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Asignatura)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asignatura)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Curso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Curso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnioEscolar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnioEscolar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tema)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tema)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompetenciasFundamentales)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompetenciasFundamentales)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompetenciasEspecificas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompetenciasEspecificas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Escenario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Escenario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Metodo.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Metodo.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sistematizacion.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sistematizacion.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trabajo.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trabajo.Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id = Model.Id }, new{@class = "btn btn-info"}) |
+    @Html.ActionLink("Cancelar", "Index", new{@class = "btn btn-danger"})
+</p>

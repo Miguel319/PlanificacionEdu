@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndicadorController.cs" />
     <Compile Include="Controllers\PlanificacionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -172,6 +173,9 @@
     <Content Include="Views\Planificacion\Index.cshtml" />
     <Content Include="Views\Planificacion\Agregar.cshtml" />
     <Content Include="Views\Planificacion\Editar.cshtml" />
+    <Content Include="Views\Planificacion\Detalles.cshtml" />
+    <Content Include="Views\Indicador\Index.cshtml" />
+    <Content Include="Views\Indicador\Agregar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

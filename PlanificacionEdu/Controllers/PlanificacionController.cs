@@ -66,6 +66,8 @@ namespace PlanificacionEdu.Controllers
             return View();
         }
 
+        public async Task<ActionResult> Detalles(int id) => View(await objBs.ObtenerPorId(id));
+            
         [HttpGet]
         public async Task<ActionResult> Eliminar(int id)
         {

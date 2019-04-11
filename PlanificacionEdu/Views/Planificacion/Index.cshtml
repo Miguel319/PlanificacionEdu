@@ -3,14 +3,14 @@
 @{
     ViewBag.Title = "Index";
 }
+<br/>
+<h3 class="text-center">Planificaciones</h3>
+<hr/>
 
-<h2>Index</h2>
-
-
-<table class="table table-bordered table-responsive table-striped table-hover">
+<table class="table table-bordered table-responsive table-condensed table-striped table-hover">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
+            @Html.DisplayName("Descripción")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Asignatura)
@@ -25,10 +25,10 @@
             @Html.DisplayNameFor(model => model.Tema)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CompetenciasFundamentales)
+            @Html.DisplayName("Objetivo")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CompetenciasEspecificas)
+            @Html.DisplayName("Objetivos específicos")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Escenario)
@@ -37,13 +37,13 @@
             @Html.DisplayNameFor(model => model.Fecha)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Metodo.Descripcion)
+            @Html.DisplayName("Método")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Sistematizacion.Descripcion)
+            @Html.DisplayName("Sistematización")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Trabajo.Descripcion)
+            @Html.DisplayName("Evaluación")
         </th>
         <th>
             @Html.ActionLink("Agregar", "Agregar", new{@class= "btn btn-primary"})
@@ -89,9 +89,9 @@
             @Html.DisplayFor(modelItem => item.Trabajo.Descripcion)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Editar", new { id=item.Id }) |
-            @Html.ActionLink("Detalles", "Detalles", new { id=item.Id }) |
-            @Html.ActionLink("Eliminar", "Eliminar", new { id=item.Id })
+            @Html.ActionLink("Editar", "Editar", new { id=item.Id }, new{@class="btn btn-primary"}) |
+            @Html.ActionLink("Detalles", "Detalles", new { id=item.Id }, new{@class="btn btn-info"}) |
+            @Html.ActionLink("Eliminar", "Eliminar", new { id=item.Id }, new{@class= "btn btn-danger"})
         </td>
     </tr>
 }
