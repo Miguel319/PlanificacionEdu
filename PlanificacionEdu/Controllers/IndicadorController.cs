@@ -41,7 +41,7 @@ namespace PlanificacionEdu.Controllers
         public async Task<ActionResult> Editar(int id)
         {
             ViewBag.PlanificacionId = new SelectList(await planificacionObjBs.Todos(), "Id", "Descripcion");
-            return View(planificacionObjBs.ObtenerPorId(id));
+            return View(await indicadorObjBs.ObtenerPorId(id));
         }
 
         public async Task<ActionResult> Editar(Indicador indicador)
@@ -65,7 +65,7 @@ namespace PlanificacionEdu.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index", "Indicador");
             }
         }
     }
