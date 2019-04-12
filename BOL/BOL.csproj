@@ -50,6 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asignatura.cs">
+      <DependentUpon>PlanificacionModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AsignaturaValidacion.cs" />
     <Compile Include="Indicador.cs">
       <DependentUpon>PlanificacionModel.tt</DependentUpon>
     </Compile>
@@ -88,19 +92,21 @@
     <Compile Include="Usuario.cs">
       <DependentUpon>PlanificacionModel.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="PlanificacionModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PlanificacionModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <Compile Include="UsuarioValidacion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="PlanificacionModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PlanificacionModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="PlanificacionModel.edmx.diagram">
       <DependentUpon>PlanificacionModel.edmx</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="PlanificacionModel.Context.tt">
@@ -113,9 +119,6 @@
       <DependentUpon>PlanificacionModel.edmx</DependentUpon>
       <LastGenOutput>PlanificacionModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

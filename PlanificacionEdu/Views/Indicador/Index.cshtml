@@ -1,15 +1,12 @@
 ﻿@model IEnumerable<BOL.Indicador>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Indicador";
 }
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<br/>
+<h2 class="text-center">Indicadores de logros</h2>
+<hr/>
+<table class="table table-bordered table-hover table-responsive table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Accion)
@@ -23,29 +20,37 @@
         <th>
             @Html.DisplayNameFor(model => model.Planificacion.Descripcion)
         </th>
-        <th></th>
+        <th>
+            @Html.ActionLink("Agregar", "Agregar", "Indicador",new{@class ="btn btn-primary"})
+        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Accion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Conocimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Condiciones)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Planificacion.Descripcion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Accion, "Detalles", new { id = item.Id })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Conocimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Condiciones)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Planificacion.Descripcion)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id=item.Id }, new{@class="btn btn-info"}) |
+                @Html.ActionLink("Eliminar", "Eliminar", new { id=item.Id }, new{@class= "btn btn-danger",onclick="return confirmarI();"})
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+<script>
+    function confirmarI() {
+        return confirm('¿Seguro/a que quiere eliminar esta planificación?');
+    }
+</script>

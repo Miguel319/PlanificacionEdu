@@ -5,34 +5,35 @@ using BOL;
 
 namespace PlanificacionEdu.Controllers
 {
+    [AllowAnonymous]
     public class RegistroController : Controller
     {
         private UsuarioBs objBs;
-        private IndicadorBs indicadorObjBs;
+        private NivelBs nivelObjBs;
 
         public RegistroController()
         {
             objBs = new UsuarioBs();
-            indicadorObjBs = new IndicadorBs();
+            nivelObjBs = new NivelBs();
         }
 
         // GET: Registro
         public async Task<ActionResult> Index()
         {
-            ViewBag.NivelId = new SelectList(await indicadorObjBs.Todos(), "Id", "Descripcion");
+            ViewBag.NivelId = new SelectList(await nivelObjBs.Todos(), "Id", "Descripcion");
             return View();
         }
 
         [HttpPost]
         public async Task<ActionResult> Index(Usuario usuario)
         {
+            ViewBag.NivelId = new SelectList(await nivelObjBs.Todos(), "Id", "Descripcion");
+
             if (ModelState.IsValid)
             {
                 await objBs.Agregar(usuario);
                 return RedirectToAction("Index", "Planificacion");
             }
-
-            TempData["Msg"] = "Error al registrar usuario. Inténtelo de nuevo.";
             return View();
         }
 

@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using BLL;
+using BOL;
 using System.Web.Mvc;
 using System.Web.Security;
-using BLL;
-using BOL;
 
 namespace PlanificacionEdu.Controllers
 {
+    [AllowAnonymous]
     public class IniciarSesionController : Controller
     {
         public UsuarioBs objBs;
@@ -27,16 +27,21 @@ namespace PlanificacionEdu.Controllers
                 }
                 else
                 {
-                    TempData["Msg"] = "Error al iniciar sesión. Verifique sus credenciales y vuelva a intentarlo";
+                    TempData["ErrLog"] = "Error al iniciar sesión. Verifique sus credenciales y vuelva a intentarlo";
                     return View();
                 }
             }
             catch
             {
-                TempData["Msg"] = "Error al iniciar sesión. Verifique sus credenciales y vuelva a intentarlo";
+                TempData["ErrLog"] = "Error al iniciar sesión. Verifique sus credenciales y vuelva a intentarlo";
                 return View();
             }
-            
+        }
+
+        public ActionResult CerrarSesion(Usuario usuario)
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
     }

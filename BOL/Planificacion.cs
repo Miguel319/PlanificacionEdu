@@ -22,7 +22,7 @@ namespace BOL
     
         public int Id { get; set; }
         public string Descripcion { get; set; }
-        public string Asignatura { get; set; }
+        public Nullable<int> AsignaturaId { get; set; }
         public string Curso { get; set; }
         public int AnioEscolar { get; set; }
         public string Tema { get; set; }
@@ -37,7 +37,8 @@ namespace BOL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Indicador> Indicador { get; set; }
         public virtual Metodo Metodo { get; set; }
-        public virtual Sistematizacion Sistematizacion { get; set; }
         public virtual Trabajo Trabajo { get; set; }
+        public virtual Sistematizacion Sistematizacion { get; set; }
+        public virtual Trabajo Trabajo1 { get; set; }
     }
 }

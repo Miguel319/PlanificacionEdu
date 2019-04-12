@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsignaturaDb.cs" />
     <Compile Include="DbBase.cs" />
     <Compile Include="IndicadorDb.cs" />
     <Compile Include="MetodoDb.cs" />

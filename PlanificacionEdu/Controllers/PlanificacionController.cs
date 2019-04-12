@@ -2,6 +2,7 @@
 using BOL;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Rotativa;
 
 namespace PlanificacionEdu.Controllers
 {
@@ -10,12 +11,14 @@ namespace PlanificacionEdu.Controllers
         private PlanificacionBs objBs;
         private MetodoBs metodoObjBs;
         private SistematizacionBs sistematizacionObjBs;
+        private AsignaturaBs asignaturaObjBs;
         private TrabajoBs trabajoObjBs;
 
         public PlanificacionController()
         {
             objBs = new PlanificacionBs();
             metodoObjBs = new MetodoBs();
+            asignaturaObjBs = new AsignaturaBs();
             sistematizacionObjBs = new SistematizacionBs();
             trabajoObjBs = new TrabajoBs();
         }
@@ -29,9 +32,14 @@ namespace PlanificacionEdu.Controllers
             ViewBag.MetodoId = new SelectList(await metodoObjBs.Todos(), "Id", "Descripcion");
             ViewBag.SistematizacionId = new SelectList(await sistematizacionObjBs.Todos(), "Id", "Descripcion");
             ViewBag.TrabajoId = new SelectList(await trabajoObjBs.Todos(), "Id", "Descripcion");
-
+            ViewBag.AsignaturaId = new SelectList(await asignaturaObjBs.Todos(), "Id", "Descripcion");
 
             return View();
+        }
+
+        public ActionResult ImprimirListado()
+        {
+            return new ActionAsPdf("Index");
         }
 
         [HttpPost]
@@ -45,12 +53,19 @@ namespace PlanificacionEdu.Controllers
             return View();
         }
 
+        public ActionResult ImprimirAgregar()
+        {
+            return new ActionAsPdf("Agregar");
+        }
+
         [HttpGet]
         public async Task<ActionResult> Editar(int id)
         {
             ViewBag.MetodoId = new SelectList(await metodoObjBs.Todos(), "Id", "Descripcion");
             ViewBag.SistematizacionId = new SelectList(await sistematizacionObjBs.Todos(), "Id", "Descripcion");
             ViewBag.TrabajoId = new SelectList(await trabajoObjBs.Todos(), "Id", "Descripcion");
+            ViewBag.AsignaturaId = new SelectList(await asignaturaObjBs.Todos(), "Id", "Descripcion");
+
 
             return View(await objBs.ObtenerPorId(id));
         }
@@ -79,7 +94,7 @@ namespace PlanificacionEdu.Controllers
             }
             catch
             {
-                TempData["Msg"] = "¡Error al eliminar planificación!";
+                TempData["Msg"] = "Error esta planificación está asociada a un indicador de logro. Desvincúlela para poder eliminarla.";
                 return RedirectToAction("Index", "Planificacion");
             }
         }

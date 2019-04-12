@@ -1,0 +1,49 @@
+﻿@model BOL.Indicador
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2 class="text-center">Indicador de logro de @Model.Planificacion.Descripcion</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Accion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Accion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conocimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conocimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Condiciones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Condiciones)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Planificacion.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Planificacion.Descripcion)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id = Model.Id}, new{@class="btn btn-info"}) |
+    @Html.ActionLink("Cancelar", "Index", "Indicador", new{@class="btn btn-danger"})
+</p>

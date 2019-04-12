@@ -3,16 +3,15 @@
 @{
     ViewBag.Title = "Editar";
 }
+<br />
+<h2 class="text-center">Editar planificación</h2>
+<hr />
 
-<h3 class="text-center">Editar planificación</h3>
-
-
-@using (Html.BeginForm("Editar","Planificacion", FormMethod.Post))
+@using (Html.BeginForm("Editar", "Planificacion", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
@@ -25,10 +24,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Asignatura, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.AsignaturaId, "AsignaturaId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Asignatura, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Asignatura, "", new { @class = "text-danger" })
+                @Html.DropDownList("AsignaturaId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AsignaturaId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -111,24 +110,25 @@
                 @Html.ValidationMessageFor(model => model.TrabajoId, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-inline">
+
+        <div class="form-inline" style="margin-left: 80px;">
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Guardar" class="btn btn-primary" />
                 </div>
             </div>
-
-            <div class="form-group">
+            <div class="form-group" style="padding-left: 30px;">
                 <div class="col-md-offset-2 col-md-10">
-                    @Html.ActionLink("Cancelar", "Index", new{@class ="btn btn-danger"})
+                    @Html.ActionLink("Cancelar", "Index", "Planificacion", new { @class = "btn btn-danger" })
                 </div>
             </div>
-
         </div>
-
     </div>
 }
 
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

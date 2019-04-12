@@ -18,6 +18,7 @@ namespace BOL
         public Trabajo()
         {
             this.Planificacion = new HashSet<Planificacion>();
+            this.Planificacion1 = new HashSet<Planificacion>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,7 @@ namespace BOL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Planificacion> Planificacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Planificacion> Planificacion1 { get; set; }
     }
 }

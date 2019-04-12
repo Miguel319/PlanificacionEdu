@@ -3,17 +3,29 @@
 @{
     ViewBag.Title = "Index";
 }
-<br/>
-<h3 class="text-center">Planificaciones</h3>
-<hr/>
+
+<br />
+<h2 class="text-center">Planificaciones</h2>
+<hr />
+
+@if (TempData["Msg"] != null)
+{
+    <div class="alert alert-dismissable alert-info">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        @TempData["Msg"].ToString()
+    </div>
+}
+
+
+<p>
+    @Html.ActionLink("Imprimir listado", "ImprimirListado", "Planificacion", new { @class = "btn btn-primary" })
+</p>
+
 
 <table class="table table-bordered table-responsive table-condensed table-striped table-hover">
     <tr>
         <th>
-            @Html.DisplayName("Descripción")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Asignatura)
+            @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Curso)
@@ -25,10 +37,10 @@
             @Html.DisplayNameFor(model => model.Tema)
         </th>
         <th>
-            @Html.DisplayName("Objetivo")
+            @Html.DisplayNameFor(model => model.CompetenciasFundamentales)
         </th>
         <th>
-            @Html.DisplayName("Objetivos específicos")
+            @Html.DisplayNameFor(model => model.CompetenciasEspecificas)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Escenario)
@@ -46,54 +58,59 @@
             @Html.DisplayName("Evaluación")
         </th>
         <th>
-            @Html.ActionLink("Agregar", "Agregar", new{@class= "btn btn-primary"})
+            @Html.ActionLink("Agregar", "Agregar", "Planificacion", new { @class = "btn btn-primary col-md-11" })
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Asignatura)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Curso)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AnioEscolar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tema)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompetenciasFundamentales)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompetenciasEspecificas)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Escenario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Metodo.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sistematizacion.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Trabajo.Descripcion)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Editar", new { id=item.Id }, new{@class="btn btn-primary"}) |
-            @Html.ActionLink("Detalles", "Detalles", new { id=item.Id }, new{@class="btn btn-info"}) |
-            @Html.ActionLink("Eliminar", "Eliminar", new { id=item.Id }, new{@class= "btn btn-danger"})
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Descripcion, "Detalles", new { id = item.Id })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Curso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnioEscolar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tema)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompetenciasFundamentales)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompetenciasEspecificas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Escenario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Metodo.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sistematizacion.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Trabajo1.Descripcion)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @class = "btn btn-info" }) |
+                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirmar();" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+
+<script>
+    function confirmar() {
+        return confirm('¿Seguro/a que quiere eliminar esta planificación?');
+    }
+</script>

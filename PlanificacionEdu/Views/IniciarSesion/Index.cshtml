@@ -1,21 +1,27 @@
 ﻿@model BOL.Usuario
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Inicio de sesión";
+}
+<br>
+<h2 class="text-center">Inicio de sesión</h2>
+<hr />
+
+@if (TempData["ErrLog"] != null)
+{
+    <div class="alert alert-dismissable alert-info">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        @TempData["ErrLog"].ToString()
+    </div>
 }
 
-<h2>Index</h2>
-
-
-@using (Html.BeginForm("Index", "IniciarSesion", FormMethod.Post)) 
+@using (Html.BeginForm("Index", "IniciarSesion", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Usuario</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-   
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -28,23 +34,22 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Contra, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Contra, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Contra, new { htmlAttributes = new { @class = "form-control", Type = "password" } })
                 @Html.ValidationMessageFor(model => model.Contra, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Agregar" class="btn btn-primary" />
+        <br />
+        <div class="form-inline" style="padding-left: 160px;">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Iniciar sesión" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="form-group" style="padding-left: 20px;">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Cancelar", "Index", "Home", new { @class = "btn btn-danger" })
+                </div>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

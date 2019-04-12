@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "Detalles";
 }
-
-<h3 class="text-center">Detalles @Model.Descripcion</h3>
+<br/>
+<h2 class="text-center">Detalles de @Model.Descripcion</h2>
+<hr/>
 
 <div>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Descripcion)
@@ -15,14 +15,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Asignatura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Asignatura)
         </dd>
 
         <dt>
@@ -90,6 +82,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Trabajo.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trabajo.Descripcion)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Sistematizacion.Descripcion)
         </dt>
 
@@ -98,16 +98,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Trabajo.Descripcion)
+            @Html.DisplayNameFor(model => model.Trabajo1.Descripcion)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Trabajo.Descripcion)
+            @Html.DisplayFor(model => model.Trabajo1.Descripcion)
         </dd>
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Editar", new { id = Model.Id }, new{@class = "btn btn-info"}) |
-    @Html.ActionLink("Cancelar", "Index", new{@class = "btn btn-danger"})
+<p style="padding-left: 80px;">
+    @Html.ActionLink("Editar", "Editar", new { id = Model.Id, controller = "Planificacion" }, new{@class= "btn btn-info"}) |
+    @Html.ActionLink("Cancelar", "Index", new{ id = Model.Id, controller = "Planificacion"}, new{@class="btn btn-danger"})
 </p>

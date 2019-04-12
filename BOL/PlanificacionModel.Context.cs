@@ -25,6 +25,7 @@ namespace BOL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Asignatura> Asignatura { get; set; }
         public virtual DbSet<Indicador> Indicador { get; set; }
         public virtual DbSet<Metodo> Metodo { get; set; }
         public virtual DbSet<Nivel> Nivel { get; set; }

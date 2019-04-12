@@ -5,6 +5,13 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PlanificacionDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Indicador">
           <Key>
             <PropertyRef Name="Id" />
@@ -35,7 +42,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
-          <Property Name="Asignatura" Type="varchar(max)" Nullable="false" />
+          <Property Name="AsignaturaId" Type="int" />
           <Property Name="Curso" Type="varchar(max)" Nullable="false" />
           <Property Name="AnioEscolar" Type="int" Nullable="false" />
           <Property Name="Tema" Type="varchar(max)" Nullable="false" />
@@ -68,12 +75,24 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" />
           <Property Name="Apellido" Type="varchar" MaxLength="50" />
-          <Property Name="Cedula" Type="varchar" MaxLength="20" />
+          <Property Name="Cedula" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="NivelId" Type="int" />
           <Property Name="Centro" Type="varchar(max)" />
           <Property Name="Email" Type="varchar" MaxLength="80" Nullable="false" />
           <Property Name="Contra" Type="varchar" MaxLength="80" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Asignatura_Planificacion">
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trabajo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="AsignaturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Metodo_Planificacion">
           <End Role="Metodo" Type="Self.Metodo" Multiplicity="0..1" />
           <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
@@ -135,6 +154,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PlanificacionDbModelStoreContainer">
+          <EntitySet Name="Asignatura" EntityType="Self.Asignatura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Indicador" EntityType="Self.Indicador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Metodo" EntityType="Self.Metodo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nivel" EntityType="Self.Nivel" Schema="dbo" store:Type="Tables" />
@@ -142,6 +162,10 @@
           <EntitySet Name="Sistematizacion" EntityType="Self.Sistematizacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trabajo" EntityType="Self.Trabajo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Asignatura_Planificacion" Association="Self.FK_Asignatura_Planificacion">
+            <End Role="Trabajo" EntitySet="Trabajo" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
           <AssociationSet Name="FK_Metodo_Planificacion" Association="Self.FK_Metodo_Planificacion">
             <End Role="Metodo" EntitySet="Metodo" />
             <End Role="Planificacion" EntitySet="Planificacion" />
@@ -168,6 +192,13 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PlanificacionDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Asignatura">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="Indicador">
           <Key>
             <PropertyRef Name="Id" />
@@ -201,7 +232,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Asignatura" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AsignaturaId" Type="Int32" />
           <Property Name="Curso" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AnioEscolar" Type="Int32" Nullable="false" />
           <Property Name="Tema" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
@@ -214,8 +245,9 @@
           <Property Name="TrabajoId" Type="Int32" />
           <NavigationProperty Name="Indicador" Relationship="Self.FK_Planificacion_Indicador" FromRole="Planificacion" ToRole="Indicador" />
           <NavigationProperty Name="Metodo" Relationship="Self.FK_Metodo_Planificacion" FromRole="Planificacion" ToRole="Metodo" />
+          <NavigationProperty Name="Trabajo" Relationship="Self.FK_Asignatura_Planificacion" FromRole="Planificacion" ToRole="Trabajo" />
           <NavigationProperty Name="Sistematizacion" Relationship="Self.FK_Sistematizacion_Planificacion" FromRole="Planificacion" ToRole="Sistematizacion" />
-          <NavigationProperty Name="Trabajo" Relationship="Self.FK_Trabajo_Planificacion" FromRole="Planificacion" ToRole="Trabajo" />
+          <NavigationProperty Name="Trabajo1" Relationship="Self.FK_Trabajo_Planificacion" FromRole="Planificacion" ToRole="Trabajo" />
         </EntityType>
         <EntityType Name="Sistematizacion">
           <Key>
@@ -231,7 +263,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Planificacion" Relationship="Self.FK_Trabajo_Planificacion" FromRole="Trabajo" ToRole="Planificacion" />
+          <NavigationProperty Name="Planificacion" Relationship="Self.FK_Asignatura_Planificacion" FromRole="Trabajo" ToRole="Planificacion" />
+          <NavigationProperty Name="Planificacion1" Relationship="Self.FK_Trabajo_Planificacion" FromRole="Trabajo" ToRole="Planificacion" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -240,7 +273,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Cedula" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NivelId" Type="Int32" />
           <Property Name="Centro" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
@@ -283,6 +316,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Asignatura_Planificacion">
+          <End Role="Trabajo" Type="Self.Trabajo" Multiplicity="0..1" />
+          <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trabajo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Planificacion">
+              <PropertyRef Name="AsignaturaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sistematizacion_Planificacion">
           <End Role="Sistematizacion" Type="Self.Sistematizacion" Multiplicity="0..1" />
           <End Role="Planificacion" Type="Self.Planificacion" Multiplicity="*" />
@@ -308,6 +353,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PlanificacionDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asignatura" EntityType="Self.Asignatura" />
           <EntitySet Name="Indicador" EntityType="Self.Indicador" />
           <EntitySet Name="Metodo" EntityType="Self.Metodo" />
           <EntitySet Name="Nivel" EntityType="Self.Nivel" />
@@ -327,6 +373,10 @@
             <End Role="Nivel" EntitySet="Nivel" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
+          <AssociationSet Name="FK_Asignatura_Planificacion" Association="Self.FK_Asignatura_Planificacion">
+            <End Role="Trabajo" EntitySet="Trabajo" />
+            <End Role="Planificacion" EntitySet="Planificacion" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sistematizacion_Planificacion" Association="Self.FK_Sistematizacion_Planificacion">
             <End Role="Sistematizacion" EntitySet="Sistematizacion" />
             <End Role="Planificacion" EntitySet="Planificacion" />
@@ -342,6 +392,14 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PlanificacionDbModelStoreContainer" CdmEntityContainer="PlanificacionDbEntities">
+          <EntitySetMapping Name="Asignatura">
+            <EntityTypeMapping TypeName="PlanificacionDbModel.Asignatura">
+              <MappingFragment StoreEntitySet="Asignatura">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Indicador">
             <EntityTypeMapping TypeName="PlanificacionDbModel.Indicador">
               <MappingFragment StoreEntitySet="Indicador">
@@ -374,7 +432,7 @@
               <MappingFragment StoreEntitySet="Planificacion">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Asignatura" ColumnName="Asignatura" />
+                <ScalarProperty Name="AsignaturaId" ColumnName="AsignaturaId" />
                 <ScalarProperty Name="Curso" ColumnName="Curso" />
                 <ScalarProperty Name="AnioEscolar" ColumnName="AnioEscolar" />
                 <ScalarProperty Name="Tema" ColumnName="Tema" />

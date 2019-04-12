@@ -56,6 +56,9 @@ namespace PlanificacionEdu.Controllers
         }
 
         [HttpGet]
+        public async Task<ActionResult> Detalles(int id) => View(await indicadorObjBs.ObtenerPorId(id));
+
+        [HttpGet]
         public async Task<ActionResult> Eliminar(int id)
         {
             try

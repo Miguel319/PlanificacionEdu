@@ -7,9 +7,9 @@ namespace BOL
     public class PlanificacionValidacion
     {
         [Required]
+        [DisplayName("Descripción")]
         public string Descripcion { get; set; }
-        [Required]
-        public string Asignatura { get; set; }
+        public Nullable<int> AsignaturaId { get; set; }
         [Required]
         public string Curso { get; set; }
         [Required]

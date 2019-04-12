@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsignaturaBs.cs" />
     <Compile Include="IndicadorBs.cs" />
     <Compile Include="MetodoBs.cs" />
     <Compile Include="NivelBs.cs" />
