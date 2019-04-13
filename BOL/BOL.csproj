@@ -57,6 +57,7 @@
     <Compile Include="Indicador.cs">
       <DependentUpon>PlanificacionModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="IndicadorValidacion.cs" />
     <Compile Include="Metodo.cs">
       <DependentUpon>PlanificacionModel.tt</DependentUpon>
     </Compile>

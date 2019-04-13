@@ -33,6 +33,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Asignatura", "Index", "Asignatura")</li>
                             <li>@Html.ActionLink("Planificación", "Index", "Planificacion")</li>
                             <li>@Html.ActionLink("Indicador", "Index", "Indicador")</li>
                         </ul>

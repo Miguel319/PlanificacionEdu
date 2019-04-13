@@ -74,12 +74,11 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Registrarse" class="btn btn-primary" />
-                </div>
+               </div>
             </div>
-
             <div class="form-group" style="padding-left: 20px;">
                 <div class="col-md-offset-2 col-md-10">
-                    @Html.ActionLink("Cancelar", "Index", "Home", new {@class = "btn btn-danger"})
+                    @Html.ActionLink("Cancelar", "Index", new{controller="Home"}, new {@class = "btn btn-danger"})
                 </div>
             </div>
         </div>

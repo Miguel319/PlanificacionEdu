@@ -57,7 +57,7 @@ namespace PlanificacionEdu.Controllers
             }
             catch
             {
-                TempData["Err"] = "Error: esta asignatura pertenece a una planificación. Desvincúlela para poder eliminarla.";
+                TempData["ErrAsignatura"] = "Error: esta asignatura pertenece a una planificación. Desvincúlela para poder eliminarla.";
                 return RedirectToAction("Index", "Asignatura");
 
             }

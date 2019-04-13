@@ -3,9 +3,16 @@
 @{
     ViewBag.Title = "Indicador";
 }
-<br/>
+<br />
 <h2 class="text-center">Indicadores de logros</h2>
-<hr/>
+<hr />
+
+
+<p>
+    @Html.ActionLink("Imprimir listado", "ImprimirListado", "Indicador", new { @class = "btn btn-primary" })
+</p>
+
+
 <table class="table table-bordered table-hover table-responsive table-striped">
     <tr>
         <th>
@@ -18,14 +25,15 @@
             @Html.DisplayNameFor(model => model.Condiciones)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Planificacion.Descripcion)
+            @Html.DisplayName("Planificación")
         </th>
         <th>
-            @Html.ActionLink("Agregar", "Agregar", "Indicador",new{@class ="btn btn-primary"})
+            @Html.ActionLink("Agregar", "Agregar", "Indicador", new { @class = "btn btn-primary col-md-8" })
         </th>
     </tr>
 
-    @foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
         <tr>
             <td>
                 @Html.ActionLink(item.Accion, "Detalles", new { id = item.Id })
@@ -40,8 +48,8 @@
                 @Html.DisplayFor(modelItem => item.Planificacion.Descripcion)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Editar", new { id=item.Id }, new{@class="btn btn-info"}) |
-                @Html.ActionLink("Eliminar", "Eliminar", new { id=item.Id }, new{@class= "btn btn-danger",onclick="return confirmarI();"})
+                @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @class = "btn btn-info col-md-4" }) |
+                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id }, new { @class = "btn btn-danger col-md-4", onclick = "return confirmarI();" })
             </td>
         </tr>
     }
@@ -51,6 +59,6 @@
 
 <script>
     function confirmarI() {
-        return confirm('¿Seguro/a que quiere eliminar esta planificación?');
+        return confirm('¿Seguro/a que quiere eliminar este indicador?');
     }
 </script>

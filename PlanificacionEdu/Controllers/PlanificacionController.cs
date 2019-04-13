@@ -66,7 +66,6 @@ namespace PlanificacionEdu.Controllers
             ViewBag.TrabajoId = new SelectList(await trabajoObjBs.Todos(), "Id", "Descripcion");
             ViewBag.AsignaturaId = new SelectList(await asignaturaObjBs.Todos(), "Id", "Descripcion");
 
-
             return View(await objBs.ObtenerPorId(id));
         }
 

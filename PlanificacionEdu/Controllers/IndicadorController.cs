@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BOL;
+using Rotativa;
 
 namespace PlanificacionEdu.Controllers
 {
@@ -51,9 +52,10 @@ namespace PlanificacionEdu.Controllers
                 await indicadorObjBs.Actualizar(indicador);
                 return RedirectToAction("Index", "Indicador");
             }
-
             return View();
         }
+
+        public ActionResult ImprimirListado() => new ActionAsPdf("Index");
 
         [HttpGet]
         public async Task<ActionResult> Detalles(int id) => View(await indicadorObjBs.ObtenerPorId(id));

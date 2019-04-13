@@ -47,16 +47,15 @@
                 @Html.ValidationMessageFor(model => model.Condiciones, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-inline" style="padding-left: 100px;">
+        <div class="form-inline" style="margin-left: 80px;">
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Guardar" class="btn btn-primary" />
                 </div>
             </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10 btn btn-danger">
-                    @Html.ActionLink("Cancelar", "Index", "Planificacion", new {@class = "btn btn-danger"})
+            <div class="form-group" style="padding-left: 30px;">
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.ActionLink("Cancelar", "Index", new { controller = "Indicador" }, new { @class = "btn btn-danger" })
                 </div>
             </div>
         </div>
